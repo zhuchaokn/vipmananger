@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stonegate.tianna.dao.QuestionDao">
+    <insert id="saveQuestion" parameterType="Question">
+       insert into question(content,questioner)  VALUES (#{content},#{questioner})
+       on duplicate update set createTime=now()
+    </insert>
+    <select id="getQuestionById" resultType="Question">
+        select * from question where id=#{id}
+    </select>
+    <select id="getLasQuestion" resultType="Question">
+        select * from question order by createTime limit 1
+    </select>
+    <select id="findQuestion" resultType="Question">
+        select * from question where content=#{content}
+    </select>
+</mapper>
