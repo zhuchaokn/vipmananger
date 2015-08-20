@@ -23,6 +23,14 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
+    <filter>
+        <filter-name>accountFilter</filter-name>
+        <filter-class>com.stonegate.vip.filtes.AccountFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>accountFilter</filter-name>
+        <url-pattern>/vip/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -37,31 +45,26 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>/vendors/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.js</url-pattern>
+        <url-pattern>/bootstrap/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.css</url-pattern>
+        <url-pattern>/assets/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.gif</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.png</url-pattern>
+        <url-pattern>/images/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>default</servlet-name>
-        <url-pattern>*.woff</url-pattern>
+        <url-pattern>/js/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>/index.html</welcome-file>
+        <welcome-file>/login.html</welcome-file>
     </welcome-file-list>
 </web-app>
