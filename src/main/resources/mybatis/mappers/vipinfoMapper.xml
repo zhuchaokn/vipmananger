@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stonegate.vip.dao.VipInfoDao">
+    <insert id="saveVipInfo" parameterType="VipInfo">
+        insert into vipinfo(vipPhone,userName,vipName,createTime,updateTime,points)
+        VALUES (#{vipPhone},#{userName},#{vipName},now(),now(),#{points})
+        on duplicate key update
+        vipPhone =#{vipPhone},
+        userName =#{userName},
+        vipName=#{vipName},
+        points=#{points},
+        updateTime=now()
+    </insert>
+    <select id="getAllVipInfo" resultType="VipInfo">
+        select * from vipinfo where userName=#{userName} limit #{from},#{size}
+    </select>
+
+    <select id="getVipInfoByPhone" resultType="VipInfo">
+        select * from vipinfo where vipPhone=#{phone} and userName=#{userName}
+    </select>
+
+</mapper>

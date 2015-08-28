@@ -19,12 +19,14 @@ public class AccountServiceImpl implements AccountService {
     private AccountDao accountDao;
 
     @Override
-    public boolean validate(Account account) {
+    public void validate(Account account) {
         Account user = accountDao.getAccountByName(account.getUserName());
         if (user == null) {
             throw new BizException("用户不存在");
         }
         String passMd5 = Md5Util.md5WithSalt(account.getPassword());
-        return passMd5.equals(user.getPassword());
+        if (!passMd5.equals(user.getPassword())) {
+            throw new BizException("用户名或密码不正确");
+        }
     }
 }

@@ -39,13 +39,14 @@
                 data: JSON.stringify({
                     userName: $("#userName").val(),
                     password: $("#password").val()
-                })
-                , dataType: "json",
+                }),
                 success: function (data) {
                     if (data.message) {
                         $("#message").val(data.message)
                     } else {
-                        location.href = data
+                        document.cookie=data._t;
+                        document.cookie=data._v;
+                        location.href = "vip/index.html"
                     }
                 },
                 error: function (data, error) {

@@ -26,19 +26,23 @@ public class AccountFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         Cookie[] cookies = request.getCookies();
-        for (Cookie ck : cookies) {
-            if (ck.getName().equals("_v")) {
-                Account account = AccountCookieMaker.parseCookie(ck.getValue());
-                String ipAddress = IpUtil.getIpAddr(request);
-                if (account == null || !ipAddress.equals(account.getLoginIp())) {
-                    ((HttpServletResponse) servletResponse).sendRedirect("/login.html");
-                } else {
-                    AccountContext.setContext(account);
-                    filterChain.doFilter(servletRequest, servletResponse);
+        if (cookies != null) {
+
+            for (Cookie ck : cookies) {
+                if (ck.getName().equals("_v")) {
+                    Account account = AccountCookieMaker.parseCookie(ck.getValue());
+                    String ipAddress = IpUtil.getIpAddr(request);
+                    if (account == null || !ipAddress.equals(account.getLoginIp())) {
+                        ((HttpServletResponse) servletResponse).sendRedirect("/login.html");
+                    } else {
+                        AccountContext.setContext(account);
+                        filterChain.doFilter(servletRequest, servletResponse);
+                    }
                 }
             }
+        }else {
+            ((HttpServletResponse) servletResponse).sendRedirect("/login.html");
         }
-        ((HttpServletResponse) servletResponse).sendRedirect("/login.html");
     }
 
     @Override

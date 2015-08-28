@@ -1,0 +1,68 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+#page {
+    padding-bottom: 60px; /*等于或者大于footer的高度*//*border-bottom-width:60px;边框宽度也可以*/
+}
+
+#header {
+    padding: 10px;
+    background: lime;
+}
+
+#footer {
+    position: relative;
+    margin-top: -60px; /*等于footer的高度*/
+    height: 60px;
+    clear: both;
+    background: #c6f;
+}
+
+#left {
+    width: 18%;
+    float: left;
+    margin-right: 2%;
+    background: orange;
+}
+
+#content {
+    width: 60%;
+    float: left;
+    margin-right: 2%;
+    background: yellow;
+}
+
+#right {
+    width: 18%;
+    float: right;
+    background: green;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
+    display: block;
+    content: " ";
+    clear: both;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+
+/* ie6 */
+*:first-child + html .clearfix {
+    zoom: 1;
+}
+
+/* ie7 */

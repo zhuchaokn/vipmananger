@@ -17,5 +17,4 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-    <mvc:resources mapping="*.html" location="/"></mvc:resources>
 </beans>

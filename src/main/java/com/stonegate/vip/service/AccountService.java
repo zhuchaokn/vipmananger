@@ -13,5 +13,5 @@ public interface AccountService {
      * @param account
      * @return
      */
-    public boolean validate(Account account);
+    public void validate(Account account);
 }

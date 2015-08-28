@@ -1,9 +1,9 @@
 package com.stonegate.vip.controller;
 
+import com.google.common.collect.Maps;
 import com.stonegate.vip.bean.Account;
 import com.stonegate.vip.common.AccountCookieMaker;
 import com.stonegate.vip.common.IpUtil;
-import com.stonegate.vip.common.exception.exceptions.BizException;
 import com.stonegate.vip.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +15,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author chao.zhu created on 15/8/17 下午5:50
@@ -28,15 +30,15 @@ public class AccountController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@RequestBody Account account, HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, String> login(@RequestBody Account account, HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
         account.setLoginIp(IpUtil.getIpAddr(request));
-        if (accountService.validate(account)) {
-            Cookie[] cookies = AccountCookieMaker.makeCookies(account);
-            for (Cookie cookie : cookies) {
-                response.addCookie(cookie);
-            }
-            return "/index.html";
+        accountService.validate(account);
+        Cookie[] cookies = AccountCookieMaker.makeCookies(account);
+        Map<String, String> cookieMap = Maps.newHashMap();
+        for (Cookie cookie : cookies) {
+            cookieMap.put(cookie.getName(), cookie.getName()+"="+cookie.getValue());
         }
-        throw new BizException("用户名或密码不正确");
+        return cookieMap;
     }
 }
